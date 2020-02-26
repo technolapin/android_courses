@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/user/chomickc/Documents/AndroidStudioProjects/MyApplication/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "/home/chomickc/Documents/AndroidStudioProjects/android_courses/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "/user/chomickc/.gradle/caches/transforms-2/files-2.1/966705fa1586529d1007328cb45c977f/appcompat-1.0.2/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "source": "/home/chomickc/.gradle/caches/transforms-2/files-2.1/966705fa1586529d1007328cb45c977f/appcompat-1.0.2/res/values-ldltr-v21/values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
