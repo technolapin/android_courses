@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="hello_esiee">Hello ESIEE!</string>
+    <string name="une_image" />
+    <string name="tryme">TRY ME!</string>
+    <string name="logs" />
+</resources>
