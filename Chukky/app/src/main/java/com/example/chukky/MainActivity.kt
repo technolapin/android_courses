@@ -9,28 +9,39 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
+object JokeList
+{
+        val list = listOf("joke A", "joke B", "joke C")
+}
+
 class JokeAdapter(private var jokes: List<String>):
     RecyclerView.Adapter<JokeAdapter.JokeViewHolder>()
 {
 
-    class JokeViewHolder(val textview: TextView): RecyclerView.ViewHolder(textview)
+    class JokeViewHolder(val text: TextView): RecyclerView.ViewHolder(text)
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): JokeAdapter.JokeViewHolder {
 
-        val textview = LayoutInflater
+        val textView = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.my_text_view, parent, false) as TextView
+            .inflate(R.layout.textview_layout, parent, false) as TextView
 
 
-        return JokeViewHolder(textview)
+        return JokeViewHolder(textView)
     }
 
     override fun getItemCount() = jokes.size
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
-        holder.textview.text = jokes[position]
+        holder.text.text = jokes[position]
     }
+
+    fun setJokes(new_jokes: List<String>)
+    {
+        jokes = new_jokes
+    }
+
 }
 
 class MainActivity : AppCompatActivity() {
@@ -39,14 +50,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val layout_manager = LinearLayoutManager(this)
+
+        val manager = LinearLayoutManager(this)
         val recycler = findViewById<RecyclerView>(R.id.recycler_id)
             .apply {
                 setHasFixedSize(true)
 
-                layoutManager = layout_manager
+                layoutManager = manager
 
-                //adapter = MyAdapter(myDataset)
+                adapter = JokeAdapter(JokeList.list)
 
             }
 
