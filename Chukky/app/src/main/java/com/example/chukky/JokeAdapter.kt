@@ -1,5 +1,6 @@
 package com.example.chukky
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -27,9 +28,14 @@ class JokeAdapter(private var jokes: List<Joke>):
         holder.text.text = jokes[position].value
     }
 
-    fun setJokes(new_jokes: List<Joke>)
+
+    fun addJoke(joke: Joke)
     {
-        jokes = new_jokes
+        val m = jokes.toMutableList()
+        m.add(0, joke)
+        jokes = m.toList()
+        Log.d("Adapter", "Jokes: ($jokes)")
+        this.notifyItemInserted(0)
     }
 
 }
