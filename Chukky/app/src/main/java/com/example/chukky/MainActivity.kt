@@ -43,10 +43,12 @@ object JokeApiServiceFactory {
 
 class MainActivity : AppCompatActivity() {
     private val disposables = CompositeDisposable();
+    private var loading = false
     private val jokeService = JokeApiServiceFactory.make();
     private val adapter = JokeAdapter(
         listOf()
     ) {
+        this.loading = false
         val progressBar = findViewById<ProgressBar>(R.id.progress_bar_id)
 
         val jokeDispo = jokeService
@@ -58,6 +60,10 @@ class MainActivity : AppCompatActivity() {
                 progressBar.visibility = View.VISIBLE
             }
             .doOnTerminate {
+                val recycler = findViewById<RecyclerView>(R.id.recycler_id)
+                recycler.adapter?.notifyDataSetChanged()
+
+                this.loading = false
                 progressBar.visibility = View.INVISIBLE
             }
             .subscribeBy(
@@ -79,7 +85,6 @@ class MainActivity : AppCompatActivity() {
                 }
             )
         this.disposables.add(jokeDispo)
-
         Unit
 
     }
@@ -114,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         */
 
         adapter.onBottomReached(adapter)
-        Thread.sleep(1000)
+/*        Thread.sleep(1000)
         adapter.onBottomReached(adapter)
         Thread.sleep(1000)
         adapter.onBottomReached(adapter)
@@ -128,14 +133,21 @@ class MainActivity : AppCompatActivity() {
         adapter.onBottomReached(adapter)
         Thread.sleep(1000)
         adapter.onBottomReached(adapter)
-
+*/
         recycler.viewTreeObserver
             .addOnScrollChangedListener(OnScrollChangedListener {
 
-                Log.i("RECYCLER STATE", recycler.scrollState
-                    .toString())
+                if (!recycler.canScrollVertically(1) && !this.loading) {
+                    Log.i("SCROLL", "bottom reached")
+                    adapter.onBottomReached(adapter)
+                    Thread.sleep(2000)
+                }
+                else
+                {
+                    Log.i("SCROLL", "bottom NOT reached")
 
-                Log.i("ADAPTER ITEM COUNT", adapter.itemCount.toString())
+                }
+                /*
                 val child = recycler.getChildAt(recycler.childCount-1)
                 if (child != null)
                 {
@@ -145,15 +157,15 @@ class MainActivity : AppCompatActivity() {
                     Log.i("DELTA", delta.toString())
                     if (delta > -20 && false)
                     {
-     //                   Log.i("AEAZEZAEZAEZAEAZE", "EXTENDING")
-                        adapter.onBottomReached(adapter)
+                       Log.i("AEAZEZAEZAEZAEAZE", "EXTENDING")
+                      //  adapter.onBottomReached(adapter)
     //                        Thread.sleep(1000)
                     }
                 }
                 else
                 {
                 }
-                /*
+
                 if (recycler.getChildAt(0).bottom
                     <= recycler.height + recycler.scrollY
                 ) { //scroll view is at bottom
