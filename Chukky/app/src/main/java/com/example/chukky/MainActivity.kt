@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver.OnScrollChangedListener
-import android.widget.EdgeEffect
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,8 +80,7 @@ class MainActivity : AppCompatActivity()
                     ); it.addJoke(j)
                 },
                 onComplete = {
-
-
+                    this.disposables.clear()
                 }
             )
         this.disposables.add(jokeDispo)
