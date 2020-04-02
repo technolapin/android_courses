@@ -41,7 +41,8 @@ object JokeApiServiceFactory {
 
 }
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()
+{
     private val disposables = CompositeDisposable();
     private var loading = false
     private val jokeService = JokeApiServiceFactory.make();
@@ -106,75 +107,15 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-        /*
-        recycler.edgeEffectFactory = object : RecyclerView.EdgeEffectFactory() {
-            override fun createEdgeEffect(view: RecyclerView, direction: Int): EdgeEffect
-            {
-                return EdgeEffect(view.context).apply {
-                    Log.d("lolilol", "SCROLLED PAST THE END");
-                    adapter.onBottomReached(adapter);
-                }
-            }
-        }
-        */
 
-        adapter.onBottomReached(adapter)
-/*        Thread.sleep(1000)
-        adapter.onBottomReached(adapter)
-        Thread.sleep(1000)
-        adapter.onBottomReached(adapter)
-        Thread.sleep(1000)
-        adapter.onBottomReached(adapter)
-        Thread.sleep(1000)
-        adapter.onBottomReached(adapter)
-        Thread.sleep(1000)
-        adapter.onBottomReached(adapter)
-        Thread.sleep(1000)
-        adapter.onBottomReached(adapter)
-        Thread.sleep(1000)
-        adapter.onBottomReached(adapter)
-*/
+        adapter.onEndReached(adapter)
         recycler.viewTreeObserver
             .addOnScrollChangedListener(OnScrollChangedListener {
 
-                if (!recycler.canScrollVertically(1) && !this.loading) {
-                    Log.i("SCROLL", "bottom reached")
-                    adapter.onBottomReached(adapter)
-                    Thread.sleep(2000)
+                if (!recycler.canScrollVertically(-1) && !this.loading) {
+                    Log.i("SCROLL", "top reached")
+                    adapter.onEndReached(adapter)
                 }
-                else
-                {
-                    Log.i("SCROLL", "bottom NOT reached")
-
-                }
-                /*
-                val child = recycler.getChildAt(recycler.childCount-1)
-                if (child != null)
-                {
- //                   Log.i("SCROLL STATE", child.y.toString())
-   //                 Log.i("RECYCLER NOT STATE", (recycler.height + recycler.scrollY).toString())
-                    val delta = child.y - recycler.height
-                    Log.i("DELTA", delta.toString())
-                    if (delta > -20 && false)
-                    {
-                       Log.i("AEAZEZAEZAEZAEAZE", "EXTENDING")
-                      //  adapter.onBottomReached(adapter)
-    //                        Thread.sleep(1000)
-                    }
-                }
-                else
-                {
-                }
-
-                if (recycler.getChildAt(0).bottom
-                    <= recycler.height + recycler.scrollY
-                ) { //scroll view is at bottom
-                } else { //scroll view is not at bottom
-                    Log.i("SCROLL", "AT BOTTOM");
-                    adapter.onBottomReached(adapter)
-                }
-                */
-
             })
 
 

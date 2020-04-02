@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class JokeAdapter(
     private var jokes: List<Joke>,
-    val onBottomReached: (JokeAdapter) -> Unit?
+    val onEndReached: (JokeAdapter) -> Unit?
 ) :
     RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
 
