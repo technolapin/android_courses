@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity()
     private var loading = false
     private val jokeService = JokeApiServiceFactory.make();
     private val adapter = JokeAdapter(
-        listOf()
+        JokeList(listOf())
     ) {
         this.loading = false
         val progressBar = findViewById<ProgressBar>(R.id.progress_bar_id)
@@ -119,6 +119,12 @@ class MainActivity : AppCompatActivity()
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+//        outState.putSerializable("jokes", )
+
+    }
 
     override fun onDestroy() {
         this.disposables.clear()
