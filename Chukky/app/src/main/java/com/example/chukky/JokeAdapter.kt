@@ -1,12 +1,28 @@
 package com.example.chukky
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.serialization.*
+import kotlin.random.Random
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
+import kotlinx.serialization.json.JsonConfiguration.Companion.Stable
 
-class JokeList(var jokes: List<Joke>){
+data class JokeList(var jokes: List<Joke>) {
+
+
+    fun parseJson(json: String) {
+        jokes = Json(JsonConfiguration.Stable).parse(
+            Joke.serializer().list,
+            json
+        )
+    }
+
     fun get(position: Int): CharSequence? {
         return this.jokes[position].value
     }
@@ -21,7 +37,15 @@ class JokeList(var jokes: List<Joke>){
         jokes = m.toList()
     }
 
+
+    fun serialized(): String {
+        return Json(Stable).stringify(
+                Joke.serializer().list,
+                    jokes
+                )
+    }
 }
+
 
 class JokeAdapter(
     var jokes: JokeList,

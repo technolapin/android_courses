@@ -105,26 +105,32 @@ class MainActivity : AppCompatActivity()
 
             }
 
+        if (savedInstanceState == null) {
+            Log.i("LOADING", "NO INSTANCE SAVED")
 
-        adapter.onEndReached(adapter)
-        recycler.viewTreeObserver
-            .addOnScrollChangedListener(OnScrollChangedListener {
+            adapter.onEndReached(adapter)
+            recycler.viewTreeObserver
+                .addOnScrollChangedListener(OnScrollChangedListener {
 
-                if (!recycler.canScrollVertically(-1) && !this.loading) {
-                    Log.i("SCROLL", "top reached")
-                    adapter.onEndReached(adapter)
-                }
-            })
+                    if (!recycler.canScrollVertically(-1) && !this.loading) {
+                        Log.i("SCROLL", "top reached")
+                        adapter.onEndReached(adapter)
+                    }
+                })
+        }
+        else {
+            Log.i("LOADING", "LOADING SAVED INSTANCE")
+            savedInstanceState.getString("jokes")?.let(adapter.jokes::parseJson)
 
-
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-//        outState.putSerializable("jokes", )
-
+        Log.i("SAVING INSTANCE", "INSTANCE SAVED")
+        outState.putString("jokes", adapter.jokes.serialized())
     }
+
 
     override fun onDestroy() {
         this.disposables.clear()
